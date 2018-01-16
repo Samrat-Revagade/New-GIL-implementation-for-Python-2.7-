@@ -741,6 +741,7 @@ regen-opcode-targets:
 		$(srcdir)/Python/opcode_targets.h
 
 Python/ceval.o: $(srcdir)/Python/opcode_targets.h
+Python/ceval.o: $(srcdir)/Python/ceval_gil.h
 
 Python/formatter_unicode.o: $(srcdir)/Python/formatter_unicode.c \
 				$(STRINGLIB_HEADERS)

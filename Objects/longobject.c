@@ -32,12 +32,7 @@
 #define MIN(x, y) ((x) > (y) ? (y) : (x))
 
 #define SIGCHECK(PyTryBlock)                            \
-    do {                                                \
-        if (--_Py_Ticker < 0) {                         \
-            _Py_Ticker = _Py_CheckInterval;             \
-            if (PyErr_CheckSignals()) PyTryBlock        \
-                                          }             \
-    } while(0)
+    if (PyErr_CheckSignals()) PyTryBlock \
 
 /* Normalize (remove leading zeros from) a long int object.
    Doesn't attempt to free the storage--in most cases, due to the nature

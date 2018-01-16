@@ -415,6 +415,7 @@ PyThreadState_SetAsyncExc(long id, PyObject *exc) {
             p->async_exc = exc;
             HEAD_UNLOCK();
             Py_XDECREF(old_exc);
+            _PyEval_SignalAsyncExc();
             return 1;
         }
     }

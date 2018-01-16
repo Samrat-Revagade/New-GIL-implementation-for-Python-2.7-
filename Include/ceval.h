@@ -66,8 +66,6 @@ PyAPI_FUNC(PyObject *) PyEval_EvalFrame(struct _frame *);
 PyAPI_FUNC(PyObject *) PyEval_EvalFrameEx(struct _frame *f, int exc);
 
 /* this used to be handled on a per-thread basis - now just two globals */
-PyAPI_DATA(volatile int) _Py_Ticker;
-PyAPI_DATA(int) _Py_CheckInterval;
 
 /* Interface for threads.
 
@@ -126,7 +124,8 @@ PyAPI_FUNC(void) PyEval_ReleaseLock(void);
 PyAPI_FUNC(void) PyEval_AcquireThread(PyThreadState *tstate);
 PyAPI_FUNC(void) PyEval_ReleaseThread(PyThreadState *tstate);
 PyAPI_FUNC(void) PyEval_ReInitThreads(void);
-
+PyAPI_FUNC(void) _PyEval_SetSwitchInterval(unsigned long microseconds);
+PyAPI_FUNC(unsigned long) _PyEval_GetSwitchInterval(void);
 #define Py_BEGIN_ALLOW_THREADS { \
                         PyThreadState *_save; \
                         _save = PyEval_SaveThread();
@@ -146,7 +145,7 @@ PyAPI_FUNC(void) PyEval_ReInitThreads(void);
 
 PyAPI_FUNC(int) _PyEval_SliceIndex(PyObject *, Py_ssize_t *);
 PyAPI_FUNC(int) _PyEval_SliceIndexNotNone(PyObject *, Py_ssize_t *);
-
+PyAPI_FUNC(void) _PyEval_SignalAsyncExc(void);
 
 #ifdef __cplusplus
 }
